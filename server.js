@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
-const {Restaurant} = require("./models/index")
-const {sequelize} = require("./db");
+const { Restaurant } = require("./models/index");
+const { sequelize } = require("./db");
 
 const port = 3000;
 
@@ -42,6 +42,12 @@ app.get('/restaurants/:id', async (req, res) => {
 app.get('/restaurants', async (req, res) => {
   const restaurants = await Restaurant.findAll();
   res.json(restaurants);
+});
+
+// Route for getting a particular restaurant by ID from the "restaurants" endpoint
+app.get('/restaurants/:id', async (req, res) => {
+  const restaurant = await Restaurant.findByPk(req.params.id);
+  res.json(restaurant);
 });
 
 app.listen(port, () => {
